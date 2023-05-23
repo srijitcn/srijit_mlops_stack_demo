@@ -7,6 +7,7 @@ on:
 
 env:
   DATABRICKS_HOST: https://adb-8590162618558854.14.azuredatabricks.net
+  DATABRICKS_TOKEN : ${{ secrets.DB_TOKEN }}
   NODE_TYPE_ID: Standard_D3_v2
   
 
