@@ -19,12 +19,11 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       DATABRICKS_HOST: https://adb-8590162618558854.14.azuredatabricks.net
+      DATABRICKS_TOKEN : ${{ secrets.DB_TOKEN }}
     steps:
       - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
-      - name: Generate AAD Token
-        run: ../../.github/workflows/scripts/generate-aad-token.sh ${{ secrets.stagingAzureSpTenantId }} ${{ secrets.stagingAzureSpApplicationId }} ${{ secrets.stagingAzureSpClientSecret }}
       - uses: hashicorp/setup-terraform@v1
       - name: Terraform fmt
         id: fmt
@@ -88,12 +87,11 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       DATABRICKS_HOST: https://adb-8590162618558854.14.azuredatabricks.net
+      DATABRICKS_TOKEN : ${{ secrets.DB_TOKEN }}
     steps:
       - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
-      - name: Generate AAD Token
-        run: ../../.github/workflows/scripts/generate-aad-token.sh ${{ secrets.prodAzureSpTenantId }} ${{ secrets.prodAzureSpApplicationId }} ${{ secrets.prodAzureSpClientSecret }}
       - uses: hashicorp/setup-terraform@v1
       - name: Terraform fmt
         id: fmt
