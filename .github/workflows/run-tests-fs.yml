@@ -71,19 +71,7 @@ jobs:
                     "primary_keys": "zip"
                   }
                 },
-                "new_cluster": {
-                  "spark_version": "11.0.x-cpu-ml-scala2.12",
-                  "node_type_id": "${{ env.NODE_TYPE_ID }}",
-                  "num_workers": 0,
-                  "spark_conf": {
-                    "spark.databricks.cluster.profile": "singleNode",
-                    "spark.master": "local[*, 4]"
-                  },
-                  "custom_tags": {
-                    "ResourceClass": "SingleNode",
-                    "clusterSource": "mlops-stack/0.0"
-                  }
-                }
+                "existing_cluster_id": "0517-125649-lunpexbd"
               },
               {
                 "task_key": "dropoff-features",
@@ -97,19 +85,7 @@ jobs:
                     "primary_keys": "zip"
                   }
                 },
-                "new_cluster": {
-                  "spark_version": "11.0.x-cpu-ml-scala2.12",
-                  "node_type_id": "${{ env.NODE_TYPE_ID }}",
-                  "num_workers": 0,
-                  "spark_conf": {
-                    "spark.databricks.cluster.profile": "singleNode",
-                    "spark.master": "local[*, 4]"
-                  },
-                  "custom_tags": {
-                    "ResourceClass": "SingleNode",
-                    "clusterSource": "mlops-stack/0.0"
-                  }
-                }
+                "existing_cluster_id": "0517-125649-lunpexbd"
               },
               {
                 "task_key": "training",
@@ -132,19 +108,7 @@ jobs:
                     "dropoff_features_table": "feature_store_taxi_example.trip_dropoff_features_test"
                   }
                 },
-                "new_cluster": {
-                  "spark_version": "11.0.x-cpu-ml-scala2.12",
-                  "node_type_id": "${{ env.NODE_TYPE_ID }}",
-                  "num_workers": 0,
-                  "spark_conf": {
-                    "spark.databricks.cluster.profile": "singleNode",
-                    "spark.master": "local[*, 4]"
-                  },
-                  "custom_tags": {
-                    "ResourceClass": "SingleNode",
-                    "clusterSource": "mlops-stack/0.0"
-                  }
-                }
+                "existing_cluster_id": "0517-125649-lunpexbd"
               }
             ],
             "git_source": {
@@ -176,7 +140,7 @@ jobs:
         uses: actions/github-script@v6
         id: comment
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PAT_GIT }}
           script: |
             const output = `
             The training integration test run is available [here](${{ steps.features-training-integration-test.outputs.run-url }}).`
