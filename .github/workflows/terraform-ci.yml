@@ -19,7 +19,6 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       DATABRICKS_HOST: https://adb-8590162618558854.14.azuredatabricks.net
-      DATABRICKS_TOKEN : ${{ secrets.DB_TOKEN }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -89,7 +88,6 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       DATABRICKS_HOST: https://adb-8590162618558854.14.azuredatabricks.net
-      DATABRICKS_TOKEN : ${{ secrets.DB_TOKEN }}
     steps:
       - uses: actions/checkout@v3
         with:

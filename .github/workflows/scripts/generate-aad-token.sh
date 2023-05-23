@@ -12,5 +12,5 @@ DATABRICKS_TOKEN=$(curl --fail -X POST -H 'Content-Type: application/x-www-form-
                                               -d 'grant_type=client_credentials' \
                                               -d 'scope=2ff814a6-3304-4ab8-85cb-cd0e6f879c1d%2F.default' \
                                               -d "client_secret=$3" |  jq -r  '.access_token')
-echo "Token is $DATABRICKS_TOKEN"
+
 echo "DATABRICKS_TOKEN=$DATABRICKS_TOKEN" >> "$GITHUB_ENV"
