@@ -10,16 +10,17 @@ resource "databricks_job" "batch_inference_job" {
     }
   }
 
-  new_cluster {
-    num_workers   = 3
-    spark_version = "11.0.x-cpu-ml-scala2.12"
-    node_type_id  = "Standard_D3_v2"
+  #new_cluster {
+  #  num_workers   = 3
+  #  spark_version = "11.0.x-cpu-ml-scala2.12"
+  #  node_type_id  = "Standard_D3_v2"
     # We set the job cluster to single user mode to enable your batch inference job to access
     # the Unity Catalog.
-    single_user_name   = data.databricks_current_user.service_principal.user_name
-    data_security_mode = "SINGLE_USER"
-    custom_tags        = { "clusterSource" = "mlops-stack/0.0" }
-  }
+  #  single_user_name   = data.databricks_current_user.service_principal.user_name
+  #  data_security_mode = "SINGLE_USER"
+  #  custom_tags        = { "clusterSource" = "mlops-stack/0.0" }
+  #}
+  existing_cluster_id = "0517-125649-lunpexbd"
 
   notebook_task {
     notebook_path = "srijit_mlops_stack_demo/deployment/batch_inference/notebooks/BatchInference"
