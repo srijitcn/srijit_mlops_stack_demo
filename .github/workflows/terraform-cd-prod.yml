@@ -1,0 +1,73 @@
+# This GitHub workflow deploys Terraform resources (ML resource config and more)
+# defined under srijit_mlops_stack_demo/terraform/prod, when PRs are merged into the release branch
+name: Terraform Deployment for srijit_mlops_stack_demo Prod
+
+on:
+  push:
+    branches:
+      - 'release'
+    paths:
+      - 'srijit_mlops_stack_demo/terraform/**'
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: ./srijit_mlops_stack_demo/terraform
+
+jobs:
+  prod:
+    concurrency: srijit_mlops_stack_demo-prod-terraform-job
+    runs-on: ubuntu-20.04
+    env:
+      DATABRICKS_HOST: https://adb-8590162618558854.14.azuredatabricks.net
+      
+    steps:
+      - uses: actions/checkout@v3
+      - name: Generate AAD Token
+        run: ../../.github/workflows/scripts/generate-aad-token.sh ${{ secrets.prodAzureSpTenantId }} ${{ secrets.prodAzureSpApplicationId }} ${{ secrets.prodAzureSpClientSecret }}
+      - uses: hashicorp/setup-terraform@v1
+      - name: Terraform fmt
+        id: fmt
+        run: terraform -chdir=prod fmt -check
+        continue-on-error: true
+      - name: Configure Terraform state backend authentication
+        run: |
+          echo "ARM_ACCESS_KEY=${{secrets.ARM_ACCESS_KEY}}" >> "$GITHUB_ENV"
+      - name: Terraform Init
+        id: init
+        run: terraform -chdir=prod init
+      - name: Terraform Validate
+        id: validate
+        run: terraform -chdir=prod validate
+      - name: Terraform Plan
+        id: plan
+        run: |
+          terraform -chdir=prod plan -no-color \
+          -var="git_repo_url=${{ github.server_url }}/${{ github.repository }}"
+      - name: Terraform Apply
+        id: apply
+        run: |
+          terraform -chdir=prod apply -auto-approve \
+          -var="git_repo_url=${{ github.server_url }}/${{ github.repository }}"
+      - name: Terraform Output
+        id: output
+        run: terraform -chdir=prod output -json
+      - name: Commit Terraform Output to File
+        id: commit
+        run: |
+          git pull
+          mkdir -p output
+          echo '${{ steps.output.outputs.stdout }}' | jq '.' > output/prod.json
+          git config --global user.name 'Terraform Output Github Workflow'
+          git config --global user.email '<>'
+          output=$(git status --porcelain)
+          if [ -n "$output" ]
+          then
+            git add -A
+            git commit -m "Commit prod output"
+            git push
+            git fetch origin release
+            git checkout release
+            git cherry-pick main
+            git push
+          fi
