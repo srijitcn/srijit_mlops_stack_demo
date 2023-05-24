@@ -9,7 +9,7 @@ resource "databricks_job" "model_training_job" {
       error_message = "Databricks job must reference a notebook at a relative path from the root of the repo, with file extension omitted. Could not find one or more notebooks in repo"
     }
   }
-  # comment1
+  # comment2
   task {
     task_key = "Train"
 
