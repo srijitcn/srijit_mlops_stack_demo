@@ -21,6 +21,9 @@ resource "databricks_job" "model_training_job" {
         training_data_path = "/databricks-datasets/nyctaxi-with-zipcodes/subsampled"
         experiment_name    = databricks_mlflow_experiment.experiment.name
         model_name         = "${local.env_prefix}srijit_mlops_stack_demo-model"
+        env = "prod"
+        dropoff_features_table = "feature_store_taxi_example.trip_dropoff_features_test"
+        pickup_features_table = "feature_store_taxi_example.trip_pickup_features_test"
       }
     }
 
