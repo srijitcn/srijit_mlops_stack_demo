@@ -1,4 +1,4 @@
-/*
+
 resource "databricks_git_credential" "service_principal_git_token" {
   git_username          = "srijit_mlops_stack_demo-cicd"
   git_provider          = var.git_provider
@@ -32,5 +32,5 @@ resource "databricks_secret" "cd_github_repo" {
   scope        = databricks_secret_scope.cd_credentials.id
 }
 
-*/
+
 
