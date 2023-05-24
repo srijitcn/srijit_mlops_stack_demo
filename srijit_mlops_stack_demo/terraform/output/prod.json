@@ -1,0 +1,27 @@
+{
+  "srijit_mlops_stack_demo_batch_inference_job_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "443366635722203"
+  },
+  "srijit_mlops_stack_demo_experiment_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "3924525001597692"
+  },
+  "srijit_mlops_stack_demo_experiment_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "/srijit_mlops_stack_demo-prod/prod-srijit_mlops_stack_demo-experiment"
+  },
+  "srijit_mlops_stack_demo_model_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "prod-srijit_mlops_stack_demo-model"
+  },
+  "srijit_mlops_stack_demo_training_job_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "350918306846387"
+  }
+}
