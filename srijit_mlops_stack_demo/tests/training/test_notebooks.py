@@ -7,3 +7,4 @@ def test_notebook_format():
     for f in paths:
         notebook_str = open(str(f)).read()
         assert notebook_str.startswith("# Databricks notebook source")
+

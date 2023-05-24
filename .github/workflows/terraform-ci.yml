@@ -54,7 +54,7 @@ jobs:
         env:
           PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PAT_GIT }}
           script: |
             const output = `#### Terraform Staging Format and Style 🖌 \`${{ steps.fmt.outcome }}\`
             #### Terraform Staging Initialization ⚙️ \`${{ steps.init.outcome }}\`
@@ -88,7 +88,6 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       DATABRICKS_HOST: https://adb-8590162618558854.14.azuredatabricks.net
-      
     steps:
       - uses: actions/checkout@v3
         with:
@@ -120,7 +119,7 @@ jobs:
         env:
           PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PAT_GIT }}
           script: |
             const output = `#### Terraform Prod Format and Style 🖌 \`${{ steps.fmt.outcome }}\`
             #### Terraform Prod Initialization ⚙️ \`${{ steps.init.outcome }}\`
