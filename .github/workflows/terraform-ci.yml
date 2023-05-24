@@ -47,7 +47,7 @@ jobs:
         id: plan
         run: |
           terraform -chdir=staging plan -no-color \
-          -var="git_repo_url=${{ github.server_url }}/${{ github.repository }}"
+          -var="git_repo_url=${{ github.server_url }}${{ github.repository }}"
       - name: Create Comment with Terraform Plan
         uses: actions/github-script@v6
         id: comment
