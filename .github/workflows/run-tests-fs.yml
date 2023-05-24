@@ -7,6 +7,7 @@ on:
 
 env:
   DATABRICKS_HOST: https://adb-8590162618558854.14.azuredatabricks.net
+  DATABRICKS_TOKEN : ${{ secrets.DB_TOKEN }}
   NODE_TYPE_ID: Standard_D3_v2
   
 
@@ -42,8 +43,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Generate AAD Token
-        run: ./.github/workflows/scripts/generate-aad-token.sh ${{ secrets.stagingAzureSpTenantId }} ${{ secrets.stagingAzureSpApplicationId }} ${{ secrets.stagingAzureSpClientSecret }}
+      #- name: Generate AAD Token
+      #  run: ./.github/workflows/scripts/generate-aad-token.sh ${{ secrets.stagingAzureSpTenantId }} ${{ secrets.stagingAzureSpApplicationId }} ${{ secrets.stagingAzureSpClientSecret }}
       # This step populates a JSON Databricks job payload that will be submitted as an integration test run.
       # It currently builds a one-off multi-task job that contains feature engineering tasks to populate Feature
       # Store tables, and a training task that uses those tables. 
