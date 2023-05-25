@@ -66,8 +66,4 @@ jobs:
             git add -A
             git commit -m "Commit prod output"
             git push
-            git fetch origin release
-            git checkout release
-            git cherry-pick main
-            git push
           fi
